@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.demos.dao.TestMigMapper">
+
+	<select id ="selectOne" resultType="map"> 
+		select * from SRM_COMP_INFO_MT
+	</select>
+	
+	
+	<insert id ="inserDelvy" parameterType="list"> 
+		INSERT INTO SRM_DELIVY_DOC_MT_MIG_20191115
+				(
+					DELIVY_DOC_NO
+					,DELIVY_DOC_ITEM_NO
+					,DELIVY_DOC_REG_DT
+					,PUR_REQ_USER
+					,COMP_CD
+					,PUR_DOC_NO
+					,PUR_DOC_ITEM_NO
+					,DELIVY_ENABLE_DT
+					,MTL_NO
+					,MTL_BRKDN
+					,DELIVY_QTY
+					,DELIVY_AMT
+					,USE_YN
+					,CREATE_ID
+					,CREATE_DT
+					,MODIFY_DT
+					,MODIFY_ID
+					,IF_FLAG
+				)
+		
+		VALUES
+			<foreach collection="list" item="item" index="index" separator=",">
+    				(
+    				  #{item.delivyDocNo}
+					, #{item.delivyDocItemNo}
+					, #{item.delivyDocRegDt}
+					, #{item.purReqUser}
+					, #{item.compCd}
+					, #{item.purDocNo}
+					, #{item.purDocItemNo}
+					, #{item.delivyEnableDt}
+					, #{item.mtlNo}
+					, #{item.mtlBrkdn}
+					, #{item.delivyQty}
+					, #{item.delivyAmt}
+					, #{item.useYn}
+					, #{item.createId}
+					, #{item.createDt}
+					, #{item.modifyDt}
+					, #{item.modifyId}
+					, #{item.ifFlag}
+    				)
+     	</foreach>
+	</insert>
+	
+	
+	<insert id ="inserPurMt" parameterType="list"> 
+		INSERT INTO SRM_PUR_DOC_MT_MIG_20191028
+				(
+						PUR_DOC_NO
+					,	PUR_ORDB_TP
+					,	COMP_CD
+					,	PUR_ORG
+					,	PUR_GRP
+					,	CUSTMR_CD
+					,	CUSTMR_BRKDN
+					,	PRINT_YN
+					,	READ_YN
+					,	PUR_DOC_CONTS
+					,	BUYER_NM
+					,	PLANT_BIZR_NO
+					,	BUYER_TEL
+					,	BUYER_FAX
+					,	PUR_EVI_DT
+					,	BUYER_MAIL
+					,	CREATE_DT
+					,	CREATE_ID
+					,	MODIFY_DT
+					,	MODIFY_ID
+					,	IF_FLAG
+				)
+		
+		VALUES
+			<foreach collection="list" item="item" index="index" separator=",">
+    				(
+    					#{item.purDocNo}
+						, #{item.purOrdbTp}
+						, #{item.compCd}
+						, #{item.purOrg}
+						, #{item.purGrp}
+						, #{item.custmrCd}
+						, #{item.custmrBrkdn}
+						, #{item.printYn}
+						, #{item.readYn}
+						, #{item.purDocConts}
+						, #{item.buyerNm}
+						, #{item.plantBizrNo}
+						, #{item.buyerTel}
+						, #{item.buyerFax}
+						, #{item.purEviDt}
+						, #{item.buyerMail}
+						, #{item.createDt}
+						, #{item.createId}
+						, #{item.modifyDt}
+						, #{item.modifyId}
+						, #{item.ifFlag}
+    				)
+     	</foreach>
+	</insert>
+	
+	
+		<insert id ="inserPurDt" parameterType="list"> 
+		INSERT INTO SRM_PUR_DOC_DT_MIG_20191028
+			(
+				 PUR_DOC_NO,
+				 PUR_DOC_ITEM_NO,
+				 ITEM_DELIVERY_DT,
+				 PUR_EVI_DT,
+				 MTL_NO,
+				 MTL_BRKDN,
+				 PUR_ORDB_QTY,
+				 RCVG_QTY,
+				 INVC_QTY,
+				 RCVG_PLANT,
+				 RCVG_STRG_LOCT,
+				 ISS_PLANT,
+				 BASE_UOM,
+				 U_PRICE,
+				 INVC_AMT,
+				 MTL_GRP,
+				 RTN_ITEM,
+				 PUR_DOC_CONTS,
+				 ETC_MTR,
+				 PUR_AMT,
+				 PRICE_UNIT,
+				 ORDB_PRICE_UNIT,
+				 STRG_LOCT_BRKDN,
+				 PUR_DEL_FLAG,
+				 PUR_COM_FLAG,
+				 PUR_REQ_USER,
+				 SLOC_NM,
+				 CREATE_DT,
+				 CREATE_ID,
+				 MODIFY_DT,
+				 MODIFY_ID,
+				 IF_FLAG
+			 )
+		VALUES
+			<foreach collection="list" item="item" index="index" separator=",">
+    				(
+    				
+						 IF(#{item.purDocNo}='NULL',null,#{item.purDocNo})
+						,IF(#{item.purDocItemNo}='NULL',null,#{item.purDocItemNo})
+						,IF(#{item.itemDeliveryDt}='NULL',null,#{item.itemDeliveryDt})
+						,IF(#{item.purEviDt}='NULL',null,#{item.purEviDt})
+						,IF(#{item.mtlNo}='NULL',null,#{item.mtlNo})
+						,IF(#{item.mtlBrkdn}='NULL',null,#{item.mtlBrkdn})
+						,#{item.purOrdbQty}
+						,#{item.rcvgQty}
+						,#{item.invcQty}
+						,IF(#{item.rcvgPlant}='NULL',null,#{item.rcvgPlant})
+						,IF(#{item.rcvgStrgLoct}='NULL',null,#{item.rcvgStrgLoct})
+						,IF(#{item.issPlant}='NULL',null,#{item.issPlant})
+						,IF(#{item.baseUom}='NULL',null,#{item.baseUom})
+						,#{item.uPrice}
+						,#{item.invcAmt}
+						,IF(#{item.mtlGrp}='NULL',null,#{item.mtlGrp})
+						,IF(#{item.rtnItem}='NULL',null,#{item.rtnItem})
+						,IF(#{item.purDocConts}='NULL',null,#{item.purDocConts})
+						,IF(#{item.etcMtr}='NULL',null,#{item.etcMtr})
+						,#{item.purAmt}
+						,IF(#{item.priceUnit}='NULL',null,#{item.priceUnit})
+						,IF(#{item.ordbPriceUnit}='NULL',null,#{item.ordbPriceUnit})
+						,IF(#{item.strgLoctBrkdn}='NULL',null,#{item.strgLoctBrkdn})
+						,IF(#{item.purDelFlag}='NULL',null,#{item.purDelFlag})
+						,IF(#{item.purComFlag}='NULL',null,#{item.purComFlag})
+						,IF(#{item.slocNm}='NULL',null,#{item.slocNm})
+						,IF(#{item.purReqUser}='NULL',null,#{item.purReqUser})
+						,#{item.createDt}
+						,IF(#{item.createId}='NULL',null,#{item.createId})
+						,#{item.modifyDt}
+						,IF(#{item.modifyId}='NULL',null,#{item.modifyId})
+						,IF(#{item.ifFlag}='NULL',null,#{item.ifFlag})
+    				)
+     	</foreach>
+	</insert>
+	
+	
+	<insert id ="inserGrMtV1" parameterType="list"> 
+		INSERT INTO SRM_GR_DOC_MT_MIG_20191028_V1
+			(
+				RCVG_MTL_DOC
+				, RCVG_DATE
+				, RCVG_MTL_DOC_ITEM
+				, PUR_DOC_NO
+				, PUR_DOC_ITEM_NO
+				, PUR_ORDR_DATE
+				, RCVG_POSTING_DATE
+				, SUPPLIER
+				, SUPPLIER_BRKDN
+				, COMP_CD
+				, PUR_GRP
+				, MTL_CD
+				, MTL_BRKDN
+				, RCVG_PLANT
+				, RCVG_STRG_LOCT
+				, STRG_LOCT_BRKDN
+				, RCVG_QTY
+				, RCVG_UOM
+				, U_PRICE
+				, RCVG_CURR
+				, RCVG_AMT
+				, INVOICE_QTY
+				, INVOICE_AMT
+				, CREATE_DT
+				, CREATE_ID
+				, MODIFY_ID
+				, MODIFY_DT
+				, IF_FLAG
+			 )
+		VALUES
+			<foreach collection="list" item="item" index="index" separator=",">
+    				(
+    				
+						IF(#{item.rcvgMtlDoc}='NULL',null,#{item.rcvgMtlDoc})
+						,IF(#{item.rcvgDate}='NULL',null,#{item.rcvgDate})
+						,IF(#{item.rcvgMtlDocItem}='NULL',null,#{item.rcvgMtlDocItem})
+						,IF(#{item.purDocNo}='NULL',null,#{item.purDocNo})
+						,IF(#{item.purDocItemNo}='NULL',null,#{item.purDocItemNo})
+						,IF(#{item.purOrdrDate}='NULL',null,#{item.purOrdrDate})
+						,IF(#{item.rcvgPostingDate}='NULL',null,#{item.rcvgPostingDate})
+						,IF(#{item.supplier}='NULL',null,#{item.supplier})
+						,IF(#{item.supplierBrkdn}='NULL',null,#{item.supplierBrkdn})
+						,IF(#{item.compCd}='NULL',null,#{item.compCd})
+						,IF(#{item.purGrp}='NULL',null,#{item.purGrp})
+						,IF(#{item.mtlCd}='NULL',null,#{item.mtlCd})
+						,IF(#{item.mtlBrkdn}='NULL',null,#{item.mtlBrkdn})
+						,IF(#{item.rcvgPlant}='NULL',null,#{item.rcvgPlant})
+						,IF(#{item.rcvgStrgLoct}='NULL',null,#{item.rcvgStrgLoct})
+						,IF(#{item.strgLoctBrkdn}='NULL',null,#{item.strgLoctBrkdn})
+						,#{item.rcvgQty}
+						,IF(#{item.rcvgUom}='NULL',null,#{item.rcvgUom})
+						,#{item.uPrice}
+						,IF(#{item.rcvgCurr}='NULL',null,#{item.rcvgCurr})
+						,#{item.rcvgAmt}
+						,#{item.invoiceQty}
+						,#{item.invoiceAmt}
+						,NOW()
+						,IF(#{item.createId}='NULL',null,#{item.createId})
+						,IF(#{item.modifyId}='NULL',null,#{item.modifyId})
+						,NOW()
+						,IF(#{item.ifFlag}='NULL',null,#{item.ifFlag})
+    				)
+     	</foreach>
+	</insert>
+	
+	
+	
+	
+	
+	
+	<insert id ="inserGrMtV2" parameterType="list"> 
+		INSERT INTO SRM_GR_DOC_MT_MIG_20191028_V2
+			(
+				RCVG_MTL_DOC
+				, RCVG_DATE
+				, RCVG_MTL_DOC_ITEM
+				, PUR_DOC_NO
+				, PUR_DOC_ITEM_NO
+				, PUR_ORDR_DATE
+				, RCVG_POSTING_DATE
+				, SUPPLIER
+				, SUPPLIER_BRKDN
+				, COMP_CD
+				, PUR_GRP
+				, MTL_CD
+				, MTL_BRKDN
+				, RCVG_PLANT
+				, RCVG_STRG_LOCT
+				, STRG_LOCT_BRKDN
+				, RCVG_QTY
+				, RCVG_UOM
+				, U_PRICE
+				, RCVG_CURR
+				, RCVG_AMT
+				, INVOICE_QTY
+				, INVOICE_AMT
+				, CREATE_DT
+				, CREATE_ID
+				, MODIFY_ID
+				, MODIFY_DT
+				, IF_FLAG
+			 )
+		VALUES
+			<foreach collection="list" item="item" index="index" separator=",">
+    				(
+    				
+						IF(#{item.rcvgMtlDoc}='NULL',null,#{item.rcvgMtlDoc})
+						,IF(#{item.rcvgDate}='NULL',null,#{item.rcvgDate})
+						,IF(#{item.rcvgMtlDocItem}='NULL',null,#{item.rcvgMtlDocItem})
+						,IF(#{item.purDocNo}='NULL',null,#{item.purDocNo})
+						,IF(#{item.purDocItemNo}='NULL',null,#{item.purDocItemNo})
+						,IF(#{item.purOrdrDate}='NULL',null,#{item.purOrdrDate})
+						,IF(#{item.rcvgPostingDate}='NULL',null,#{item.rcvgPostingDate})
+						,IF(#{item.supplier}='NULL',null,#{item.supplier})
+						,IF(#{item.supplierBrkdn}='NULL',null,#{item.supplierBrkdn})
+						,IF(#{item.compCd}='NULL',null,#{item.compCd})
+						,IF(#{item.purGrp}='NULL',null,#{item.purGrp})
+						,IF(#{item.mtlCd}='NULL',null,#{item.mtlCd})
+						,IF(#{item.mtlBrkdn}='NULL',null,#{item.mtlBrkdn})
+						,IF(#{item.rcvgPlant}='NULL',null,#{item.rcvgPlant})
+						,IF(#{item.rcvgStrgLoct}='NULL',null,#{item.rcvgStrgLoct})
+						,IF(#{item.strgLoctBrkdn}='NULL',null,#{item.strgLoctBrkdn})
+						,#{item.rcvgQty}
+						,IF(#{item.rcvgUom}='NULL',null,#{item.rcvgUom})
+						,#{item.uPrice}
+						,IF(#{item.rcvgCurr}='NULL',null,#{item.rcvgCurr})
+						,#{item.rcvgAmt}
+						,#{item.invoiceQty}
+						,#{item.invoiceAmt}
+						,#{item.createDt}
+						,IF(#{item.createId}='NULL',null,#{item.createId})
+						,IF(#{item.modifyId}='NULL',null,#{item.modifyId})
+						,#{item.modifyDt}
+						,IF(#{item.ifFlag}='NULL',null,#{item.ifFlag})
+    				)
+     	</foreach>
+	</insert>
+	
+	
+	
+	
+	<insert id ="inserGrMtV3" parameterType="list"> 
+		INSERT INTO SRM_GR_DOC_MT_MIG_20191028_V3
+			(
+				RCVG_MTL_DOC
+				, RCVG_DATE
+				, RCVG_MTL_DOC_ITEM
+				, PUR_DOC_NO
+				, PUR_DOC_ITEM_NO
+				, PUR_ORDR_DATE
+				, RCVG_POSTING_DATE
+				, SUPPLIER
+				, SUPPLIER_BRKDN
+				, COMP_CD
+				, PUR_GRP
+				, MTL_CD
+				, MTL_BRKDN
+				, RCVG_PLANT
+				, RCVG_STRG_LOCT
+				, STRG_LOCT_BRKDN
+				, RCVG_QTY
+				, RCVG_UOM
+				, U_PRICE
+				, RCVG_CURR
+				, RCVG_AMT
+				, INVOICE_QTY
+				, INVOICE_AMT
+				, CREATE_DT
+				, CREATE_ID
+				, MODIFY_ID
+				, MODIFY_DT
+				, IF_FLAG
+			 )
+		VALUES
+			<foreach collection="list" item="item" index="index" separator=",">
+    				(
+    				
+						IF(#{item.rcvgMtlDoc}='NULL',null,#{item.rcvgMtlDoc})
+						,IF(#{item.rcvgDate}='NULL',null,#{item.rcvgDate})
+						,IF(#{item.rcvgMtlDocItem}='NULL',null,#{item.rcvgMtlDocItem})
+						,IF(#{item.purDocNo}='NULL',null,#{item.purDocNo})
+						,IF(#{item.purDocItemNo}='NULL',null,#{item.purDocItemNo})
+						,IF(#{item.purOrdrDate}='NULL',null,#{item.purOrdrDate})
+						,IF(#{item.rcvgPostingDate}='NULL',null,#{item.rcvgPostingDate})
+						,IF(#{item.supplier}='NULL',null,#{item.supplier})
+						,IF(#{item.supplierBrkdn}='NULL',null,#{item.supplierBrkdn})
+						,IF(#{item.compCd}='NULL',null,#{item.compCd})
+						,IF(#{item.purGrp}='NULL',null,#{item.purGrp})
+						,IF(#{item.mtlCd}='NULL',null,#{item.mtlCd})
+						,IF(#{item.mtlBrkdn}='NULL',null,#{item.mtlBrkdn})
+						,IF(#{item.rcvgPlant}='NULL',null,#{item.rcvgPlant})
+						,IF(#{item.rcvgStrgLoct}='NULL',null,#{item.rcvgStrgLoct})
+						,IF(#{item.strgLoctBrkdn}='NULL',null,#{item.strgLoctBrkdn})
+						,#{item.rcvgQty}
+						,IF(#{item.rcvgUom}='NULL',null,#{item.rcvgUom})
+						,#{item.uPrice}
+						,IF(#{item.rcvgCurr}='NULL',null,#{item.rcvgCurr})
+						,#{item.rcvgAmt}
+						,#{item.invoiceQty}
+						,#{item.invoiceAmt}
+						,#{item.createDt}
+						,IF(#{item.createId}='NULL',null,#{item.createId})
+						,IF(#{item.modifyId}='NULL',null,#{item.modifyId})
+						,#{item.modifyDt}
+						,IF(#{item.ifFlag}='NULL',null,#{item.ifFlag})
+    				)
+     	</foreach>
+	</insert>
+	
+	
+	
+	<insert id ="inserGrMtV4" parameterType="list"> 
+		INSERT INTO SRM_GR_DOC_MT_MIG_20191028_V4
+			(
+				RCVG_MTL_DOC
+				, RCVG_DATE
+				, RCVG_MTL_DOC_ITEM
+				, PUR_DOC_NO
+				, PUR_DOC_ITEM_NO
+				, PUR_ORDR_DATE
+				, RCVG_POSTING_DATE
+				, SUPPLIER
+				, SUPPLIER_BRKDN
+				, COMP_CD
+				, PUR_GRP
+				, MTL_CD
+				, MTL_BRKDN
+				, RCVG_PLANT
+				, RCVG_STRG_LOCT
+				, STRG_LOCT_BRKDN
+				, RCVG_QTY
+				, RCVG_UOM
+				, U_PRICE
+				, RCVG_CURR
+				, RCVG_AMT
+				, INVOICE_QTY
+				, INVOICE_AMT
+				, CREATE_DT
+				, CREATE_ID
+				, MODIFY_ID
+				, MODIFY_DT
+				, IF_FLAG
+			 )
+		VALUES
+			<foreach collection="list" item="item" index="index" separator=",">
+    				(
+    				
+						IF(#{item.rcvgMtlDoc}='NULL',null,#{item.rcvgMtlDoc})
+						,IF(#{item.rcvgDate}='NULL',null,#{item.rcvgDate})
+						,IF(#{item.rcvgMtlDocItem}='NULL',null,#{item.rcvgMtlDocItem})
+						,IF(#{item.purDocNo}='NULL',null,#{item.purDocNo})
+						,IF(#{item.purDocItemNo}='NULL',null,#{item.purDocItemNo})
+						,IF(#{item.purOrdrDate}='NULL',null,#{item.purOrdrDate})
+						,IF(#{item.rcvgPostingDate}='NULL',null,#{item.rcvgPostingDate})
+						,IF(#{item.supplier}='NULL',null,#{item.supplier})
+						,IF(#{item.supplierBrkdn}='NULL',null,#{item.supplierBrkdn})
+						,IF(#{item.compCd}='NULL',null,#{item.compCd})
+						,IF(#{item.purGrp}='NULL',null,#{item.purGrp})
+						,IF(#{item.mtlCd}='NULL',null,#{item.mtlCd})
+						,IF(#{item.mtlBrkdn}='NULL',null,#{item.mtlBrkdn})
+						,IF(#{item.rcvgPlant}='NULL',null,#{item.rcvgPlant})
+						,IF(#{item.rcvgStrgLoct}='NULL',null,#{item.rcvgStrgLoct})
+						,IF(#{item.strgLoctBrkdn}='NULL',null,#{item.strgLoctBrkdn})
+						,#{item.rcvgQty}
+						,IF(#{item.rcvgUom}='NULL',null,#{item.rcvgUom})
+						,#{item.uPrice}
+						,IF(#{item.rcvgCurr}='NULL',null,#{item.rcvgCurr})
+						,#{item.rcvgAmt}
+						,#{item.invoiceQty}
+						,#{item.invoiceAmt}
+						,#{item.createDt}
+						,IF(#{item.createId}='NULL',null,#{item.createId})
+						,IF(#{item.modifyId}='NULL',null,#{item.modifyId})
+						,#{item.modifyDt}
+						,IF(#{item.ifFlag}='NULL',null,#{item.ifFlag})
+    				)
+     	</foreach>
+	</insert>
+	
+	
+	
+	<insert id ="inserGrMtV5" parameterType="list"> 
+		INSERT INTO SRM_GR_DOC_MT_MIG_20191028_V5
+			(
+				RCVG_MTL_DOC
+				, RCVG_DATE
+				, RCVG_MTL_DOC_ITEM
+				, PUR_DOC_NO
+				, PUR_DOC_ITEM_NO
+				, PUR_ORDR_DATE
+				, RCVG_POSTING_DATE
+				, SUPPLIER
+				, SUPPLIER_BRKDN
+				, COMP_CD
+				, PUR_GRP
+				, MTL_CD
+				, MTL_BRKDN
+				, RCVG_PLANT
+				, RCVG_STRG_LOCT
+				, STRG_LOCT_BRKDN
+				, RCVG_QTY
+				, RCVG_UOM
+				, U_PRICE
+				, RCVG_CURR
+				, RCVG_AMT
+				, INVOICE_QTY
+				, INVOICE_AMT
+				, CREATE_DT
+				, CREATE_ID
+				, MODIFY_ID
+				, MODIFY_DT
+				, IF_FLAG
+			 )
+		VALUES
+			<foreach collection="list" item="item" index="index" separator=",">
+    				(
+    				
+						IF(#{item.rcvgMtlDoc}='NULL',null,#{item.rcvgMtlDoc})
+						,IF(#{item.rcvgDate}='NULL',null,#{item.rcvgDate})
+						,IF(#{item.rcvgMtlDocItem}='NULL',null,#{item.rcvgMtlDocItem})
+						,IF(#{item.purDocNo}='NULL',null,#{item.purDocNo})
+						,IF(#{item.purDocItemNo}='NULL',null,#{item.purDocItemNo})
+						,IF(#{item.purOrdrDate}='NULL',null,#{item.purOrdrDate})
+						,IF(#{item.rcvgPostingDate}='NULL',null,#{item.rcvgPostingDate})
+						,IF(#{item.supplier}='NULL',null,#{item.supplier})
+						,IF(#{item.supplierBrkdn}='NULL',null,#{item.supplierBrkdn})
+						,IF(#{item.compCd}='NULL',null,#{item.compCd})
+						,IF(#{item.purGrp}='NULL',null,#{item.purGrp})
+						,IF(#{item.mtlCd}='NULL',null,#{item.mtlCd})
+						,IF(#{item.mtlBrkdn}='NULL',null,#{item.mtlBrkdn})
+						,IF(#{item.rcvgPlant}='NULL',null,#{item.rcvgPlant})
+						,IF(#{item.rcvgStrgLoct}='NULL',null,#{item.rcvgStrgLoct})
+						,IF(#{item.strgLoctBrkdn}='NULL',null,#{item.strgLoctBrkdn})
+						,#{item.rcvgQty}
+						,IF(#{item.rcvgUom}='NULL',null,#{item.rcvgUom})
+						,#{item.uPrice}
+						,IF(#{item.rcvgCurr}='NULL',null,#{item.rcvgCurr})
+						,#{item.rcvgAmt}
+						,#{item.invoiceQty}
+						,#{item.invoiceAmt}
+						,#{item.createDt}
+						,IF(#{item.createId}='NULL',null,#{item.createId})
+						,IF(#{item.modifyId}='NULL',null,#{item.modifyId})
+						,#{item.modifyDt}
+						,IF(#{item.ifFlag}='NULL',null,#{item.ifFlag})
+    				)
+     	</foreach>
+	</insert>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+   
+</mapper>
